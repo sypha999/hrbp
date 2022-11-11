@@ -47,6 +47,7 @@ public class TeacherServiceImpl implements TeacherServices{
     public Response get_student_score(String name, String term, String studentClass, String subject) {
         studentClass = studentClass.toLowerCase();
         Response response = new Response();
+        subject=subject.toLowerCase();
         switch (studentClass) {
             case ("a1") -> {
                 Optional<A1> data = a1.findByFullnameAndTermAndSubject(name, term, subject);
@@ -277,12 +278,20 @@ public class TeacherServiceImpl implements TeacherServices{
         B2 class_b2 = new B2();
         Response response = new Response();
         studentClass=studentClass.toLowerCase();
+        subject=subject.toLowerCase();
         switch (studentClass) {
             case ("a1") -> {
                 if (!a1_subjects.toLowerCase().contains(subject.toLowerCase())) {
                     response.setCode(HttpStatus.FORBIDDEN);
                     response.setMessage("Operation could not be performed");
                     response.setContent("Could not add Student score because Class A1 does not offer this subject");
+                    return response;
+                }
+
+                if(score<0 && score>100){
+                    response.setCode(HttpStatus.FORBIDDEN);
+                    response.setMessage("Operation could not be performed");
+                    response.setContent("Could not add Student score because score is invalid");
                     return response;
                 }
                 Optional<A1> a1scoreExist = a1.findByFullnameAndTermAndSubject(name, term, subject);
@@ -316,6 +325,14 @@ public class TeacherServiceImpl implements TeacherServices{
                     response.setContent("Could not add Student score because Class A2 does not offer this subject");
                     return response;
                 }
+
+                if(score<0 && score>100){
+                    response.setCode(HttpStatus.FORBIDDEN);
+                    response.setMessage("Operation could not be performed");
+                    response.setContent("Could not add Student score because score is invalid");
+                    return response;
+                }
+
                 Optional<A2> a2scoreExist = a2.findByFullnameAndTermAndSubject(name, term, subject);
                 if (a2scoreExist.isPresent()) {
                     response.setCode(HttpStatus.FORBIDDEN);
@@ -347,6 +364,14 @@ public class TeacherServiceImpl implements TeacherServices{
                     response.setContent("Could not add Student score because Class B1 does not offer this subject");
                     return response;
                 }
+
+                if(score<0 && score>100){
+                    response.setCode(HttpStatus.FORBIDDEN);
+                    response.setMessage("Operation could not be performed");
+                    response.setContent("Could not add Student score because score is invalid");
+                    return response;
+                }
+
                 Optional<B1> b1scoreExist = b1.findByFullnameAndTermAndSubject(name, term, subject);
                 if (b1scoreExist.isPresent()) {
                     response.setCode(HttpStatus.FORBIDDEN);
@@ -378,6 +403,14 @@ public class TeacherServiceImpl implements TeacherServices{
                     response.setContent("Could not add Student score because Class B2 does not offer this subject");
                     return response;
                 }
+
+                if(score<0 && score>100){
+                    response.setCode(HttpStatus.FORBIDDEN);
+                    response.setMessage("Operation could not be performed");
+                    response.setContent("Could not add Student score because score is invalid");
+                    return response;
+                }
+
                 Optional<B2> b2scoreExist = b2.findByFullnameAndTermAndSubject(name, term, subject);
                 if (b2scoreExist.isPresent()) {
                     response.setCode(HttpStatus.FORBIDDEN);
