@@ -45,9 +45,100 @@ public class TeacherServiceImpl implements TeacherServices{
 
     @Override
     public Response get_student_score(String name, String term, String studentClass, String subject) {
+        studentClass = studentClass.toLowerCase();
+        Response response = new Response();
+        switch (studentClass) {
+            case ("a1") -> {
+                Optional<A1> data = a1.findByFullnameAndTermAndSubject(name, term, subject);
+                if (data.isEmpty()) {
+                    response.setCode(HttpStatus.BAD_REQUEST);
+                    response.setMessage("Operation not successful");
+                    response.setContent("Student data does not exist, please crosscheck your input and try again");
+
+                } else {
+                    StudentResponseDto studentResponseDto = new StudentResponseDto();
+                    A1 data2 = data.get();
+                    studentResponseDto.setName(data2.getFullname());
+                    studentResponseDto.setScore(data2.getScore());
+                    studentResponseDto.setSubject(data2.getSubject());
+                    response.setCode(HttpStatus.ACCEPTED);
+                    response.setMessage("Operation performed successfully");
+                    response.setContent(studentResponseDto.toString());
+                    return response;
+                }
+            }
+            case ("a2") -> {
+                Optional<A2> data = a2.findByFullnameAndTermAndSubject(name, term, subject);
+
+                if (data.isEmpty()) {
+                    response.setCode(HttpStatus.BAD_REQUEST);
+                    response.setMessage("Operation not successful");
+                    response.setContent("Student data does not exist, please crosscheck your input and try again");
+
+                } else {
+                    StudentResponseDto studentResponseDto = new StudentResponseDto();
+                    A2 data2 = data.get();
+                    studentResponseDto.setName(data2.getFullname());
+                    studentResponseDto.setScore(data2.getScore());
+                    studentResponseDto.setSubject(data2.getSubject());
+                    response.setCode(HttpStatus.ACCEPTED);
+                    response.setMessage("Operation performed successfully");
+                    response.setContent(studentResponseDto.toString());
+                    return response;
+                }
+
+            }
+            case ("b1") -> {
+                Optional<B1> data = b1.findByFullnameAndTermAndSubject(name, term, subject);
+
+                if (data.isEmpty()) {
+                    response.setCode(HttpStatus.BAD_REQUEST);
+                    response.setMessage("Operation not successful");
+                    response.setContent("Student data does not exist, please crosscheck your input and try again");
+
+                } else {
+                    StudentResponseDto studentResponseDto = new StudentResponseDto();
+                    B1 data2 = data.get();
+                    studentResponseDto.setName(data2.getFullname());
+                    studentResponseDto.setScore(data2.getScore());
+                    studentResponseDto.setSubject(data2.getSubject());
+                    response.setCode(HttpStatus.ACCEPTED);
+                    response.setMessage("Operation performed successfully");
+                    response.setContent(studentResponseDto.toString());
+                    return response;
+                }
+            }
+            case ("b2") -> {
+                Optional<B2> data = b2.findByFullnameAndTermAndSubject(name, term, subject);
+                if (data.isEmpty()) {
+                    response.setCode(HttpStatus.BAD_REQUEST);
+                    response.setMessage("Operation not successful");
+                    response.setContent("Student data does not exist, please crosscheck your input and try again");
+
+                } else {
+                    StudentResponseDto studentResponseDto = new StudentResponseDto();
+                    B2 data2 = data.get();
+                    studentResponseDto.setName(data2.getFullname());
+                    studentResponseDto.setScore(data2.getScore());
+                    studentResponseDto.setSubject(data2.getSubject());
+                    response.setCode(HttpStatus.ACCEPTED);
+                    response.setMessage("Operation performed successfully");
+                    response.setContent(studentResponseDto.toString());
+                    return response;
 
 
-        return null;
+                }
+
+            }
+            default -> {
+                response.setCode(HttpStatus.BAD_REQUEST);
+                response.setMessage("Operation not successful");
+                response.setContent("Student data does not exist, please crosscheck your input and try again");
+            }
+        }
+
+
+        return response;
     }
 
 
@@ -58,14 +149,13 @@ public class TeacherServiceImpl implements TeacherServices{
         Response response = new Response();
         switch (studentclass) {
             case ("a1") -> {
-                Optional<A1> studentData = a1.findByFullnameAndTermAndStudentClass(name, term, studentclass);
+                Optional<A1> studentData = a1.findByFullnameAndTerm(name, term);
                 if (studentData.isEmpty()) {
                     response.setCode(HttpStatus.BAD_REQUEST);
                     response.setMessage("Operation not successful");
                     response.setContent("Student data does not exist, please crosscheck your input and try again");
-                    return response;
                 }
-                if (studentData.isPresent()) {
+                else  {
                     List<A1> data = (List<A1>) studentData.get();
                     List<StudentResponseDto> data2 = new ArrayList<>();
                     Double avg = 0.0;
@@ -86,14 +176,13 @@ public class TeacherServiceImpl implements TeacherServices{
 
             }
             case ("a2") -> {
-                Optional<A2> studentData = a2.findByFullnameAndTermAndStudentClass(name, term, studentclass);
+                Optional<A2> studentData = a2.findByFullnameAndTerm(name, term);
                 if (studentData.isEmpty()) {
                     response.setCode(HttpStatus.BAD_REQUEST);
                     response.setMessage("Operation not successful");
                     response.setContent("Student data does not exist, please crosscheck your input and try again");
-                    return response;
                 }
-                if (studentData.isPresent()) {
+                else {
                     List<A2> data = (List<A2>) studentData.get();
                     List<StudentResponseDto> data2 = new ArrayList<>();
                     Double avg = 0.0;
@@ -115,14 +204,13 @@ public class TeacherServiceImpl implements TeacherServices{
 
             }
             case ("b1") -> {
-                Optional<B1> studentData = b1.findByFullnameAndTermAndStudentClass(name, term, studentclass);
+                Optional<B1> studentData = b1.findByFullnameAndTerm(name, term);
                 if (studentData.isEmpty()) {
                     response.setCode(HttpStatus.BAD_REQUEST);
                     response.setMessage("Operation not successful");
                     response.setContent("Student data does not exist, please crosscheck your input and try again");
-                    return response;
                 }
-                if (studentData.isPresent()) {
+                else{
                     List<B1> data = (List<B1>) studentData.get();
                     List<StudentResponseDto> data2 = new ArrayList<>();
                     Double avg = 0.0;
@@ -143,14 +231,14 @@ public class TeacherServiceImpl implements TeacherServices{
 
             }
             case ("b2") -> {
-                Optional<B2> studentData = b2.findByFullnameAndTermAndStudentClass(name, term, studentclass);
+                Optional<B2> studentData = b2.findByFullnameAndTerm(name, term);
                 if (studentData.isEmpty()) {
                     response.setCode(HttpStatus.BAD_REQUEST);
                     response.setMessage("Operation not successful");
                     response.setContent("Student data does not exist, please crosscheck your input and try again");
-                    return response;
+
                 }
-                if (studentData.isPresent()) {
+                else{
                     List<B2> data = (List<B2>) studentData.get();
                     List<StudentResponseDto> data2 = new ArrayList<>();
                     Double avg = 0.0;
@@ -177,7 +265,7 @@ public class TeacherServiceImpl implements TeacherServices{
 
             }
         }
-        return null;
+        return response;
     }
 
     @Override
@@ -188,6 +276,7 @@ public class TeacherServiceImpl implements TeacherServices{
         B1 class_b1 = new B1();
         B2 class_b2 = new B2();
         Response response = new Response();
+        studentClass=studentClass.toLowerCase();
         switch (studentClass) {
             case ("a1") -> {
                 if (!a1_subjects.toLowerCase().contains(subject.toLowerCase())) {

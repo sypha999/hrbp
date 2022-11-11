@@ -13,5 +13,6 @@ public interface a1repository extends JpaRepository<A1,Integer> {
     Optional<A1> findByFullnameAndTermAndSubject(String fullname,String term, String subject);
     List <A1> findBySubjectAndTerm(String subject,String term);
 
-    Optional<A1> findByFullnameAndTermAndStudentClass(String name,String term, String studentClass);
+    Optional<A1> findByFullnameAndTerm(String name,String term);
+
 }

@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface b2repository extends JpaRepository<B2,Integer> {
     Optional<B2> findByFullnameAndTermAndSubject(String fullname, String term, String subject);
     List<B2> findBySubjectAndTerm(String subject, String term);
-    Optional<B2> findByFullnameAndTermAndStudentClass(String name,String term, String studentClass);
+    Optional<B2> findByFullnameAndTerm(String name, String term);
 }
