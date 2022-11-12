@@ -44,6 +44,9 @@ public class TeacherServiceImpl implements TeacherServices{
     @Value("${b2_subjects}")
     private String b2_sub;
 
+    @Value("${terms}")
+    private String terms;
+
 
     @Override
     public Response get_student_score(String name, String term, String studentClass, String subject) {
@@ -287,6 +290,13 @@ public class TeacherServiceImpl implements TeacherServices{
         term = term.toLowerCase();
         name = name.toLowerCase();
         subject=subject.toLowerCase();
+        List<String> acceptedTerms = new ArrayList<>(Arrays.asList(terms.split(",")));
+        if(!acceptedTerms.contains(term)){
+            response.setCode(HttpStatus.FORBIDDEN);
+            response.setMessage("Could not add Student score because you entered an invalid term, terms can either be first, second or third");
+            response.setContent(null);
+            return response;
+        }
         switch (studentClass) {
             case ("a1") -> {
                 List<String> a1_subjects = new ArrayList<>(Arrays.asList(a1_sub.split(",")));
