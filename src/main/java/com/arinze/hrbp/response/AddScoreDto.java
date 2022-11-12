@@ -1,5 +1,6 @@
 package com.arinze.hrbp.response;
 
+
 import lombok.Data;
 
 @Data

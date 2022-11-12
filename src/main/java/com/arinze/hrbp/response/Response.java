@@ -2,12 +2,13 @@ package com.arinze.hrbp.response;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;
+
 import java.util.List;
 
 @Data
-public class Response {
+public class Response<T> {
     private HttpStatus code;
     private String message;
-    private String content;
+    private List<T> content;
 
 }

@@ -1,5 +1,6 @@
 package com.arinze.hrbp.models;
 
+
 import lombok.Data;
 
 import javax.persistence.*;
